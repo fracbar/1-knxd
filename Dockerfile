@@ -22,8 +22,6 @@ COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY liveness-probe.sh /usr/local/bin/liveness-probe.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/liveness-probe.sh
 
-# Set environment variables with defaults
-ENV KNXD_ARGS=""
 
 # Entrypoint
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

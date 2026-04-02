@@ -2,7 +2,7 @@
 set -e
 
 OWSERVER_CONFIG="${OWSERVER_CONFIG:-/etc/owfs/owserver.conf}"
-KNXD_ARGS="${KNXD_ARGS:-}"
+KNXD_CONFIG="${KNXD_CONFIG:-/etc/knxd.ini}"
 
 # Flag to track if any service started
 SERVICES_STARTED=0
@@ -17,21 +17,21 @@ else
     echo "To enable owserver, mount a config file to: $OWSERVER_CONFIG"
 fi
 
-# Start knxd if KNXD_ARGS is provided
-if [ -n "$KNXD_ARGS" ]; then
-    echo "Starting knxd with args: $KNXD_ARGS"
-    eval "knxd $KNXD_ARGS" &
+# Start knxd if KNXD_CONFIG is provided
+if [ -f "$KNXD_CONFIG" ]; then
+    echo "Starting knxd with config: $KNXD_CONFIG"
+    eval "knxd $KNXD_CONFIG" &
     SERVICES_STARTED=$((SERVICES_STARTED + 1))
 else
-    echo "Warning: KNXD_ARGS not set"
-    echo "To enable knxd, set KNXD_ARGS environment variable"
+    echo "Warning: KNXD_CONFIG not set"
+    echo "To enable knxd, mount a config file to: $KNXD_CONFIG"
 fi
 
 # Exit if no services were started
 if [ $SERVICES_STARTED -eq 0 ]; then
     echo "Error: No services configured. Please provide:"
     echo "  - owserver config file at: $OWSERVER_CONFIG"
-    echo "  - KNXD_ARGS environment variable"
+    echo "  - knxd config file at: $KNXD_CONFIG"
     exit 1
 fi
 
