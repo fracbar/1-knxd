@@ -11,18 +11,18 @@ jobs:
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
-        
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
       - name: Checkout
-        uses: actions/checkout@v3   
+        uses: actions/checkout@v3
 
       - name: Set lowercase repository name
         id: set_lowercase_repo
         run: |
           LOWERCASE_REPO=$(echo "${GITHUB_REPOSITORY}" | tr '[:upper:]' '[:lower:]')
-          echo "::set-output name=lowercase_repo::${LOWERCASE_REPO}"          
+          echo "::set-output name=lowercase_repo::${LOWERCASE_REPO}"
 
       # Docker
       - name: Extract metadata (tags, labels) for Docker
@@ -44,5 +44,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/${{ steps.set_lowercase_repo.outputs.lowercase_repo }}:dev            
+            ghcr.io/${{ steps.set_lowercase_repo.outputs.lowercase_repo }}:dev
           labels: ${{ steps.meta.outputs.labels }}

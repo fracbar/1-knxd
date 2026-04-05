@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-OWSERVER_CONFIG="${OWSERVER_CONFIG:-/etc/owfs/owserver.conf}"
+OWSERVER_CONFIG="${OWSERVER_CONFIG:-/etc/owfs.conf}"
 KNXD_CONFIG="${KNXD_CONFIG:-/etc/knxd.ini}"
 
 # Flag to track if any service started
