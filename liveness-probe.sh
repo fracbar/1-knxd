@@ -4,7 +4,7 @@
 EXIT_CODE=0
 
 # Check owserver if it should be running
-if [ -f "${OWSERVER_CONFIG:-/etc/owfs/owserver.conf}" ]; then
+if [ -f "${OWSERVER_CONFIG:-}" ]; then
     if ! pgrep -x "owserver" > /dev/null; then
         echo "ERROR: owserver is not running"
         EXIT_CODE=1
@@ -14,7 +14,7 @@ if [ -f "${OWSERVER_CONFIG:-/etc/owfs/owserver.conf}" ]; then
 fi
 
 # Check knxd if it should be running
-if [ -n "${KNXD_ARGS}" ]; then
+if [ -f "${KNXD_CONFIG:-}" ]; then
     if ! pgrep -x "knxd" > /dev/null; then
         echo "ERROR: knxd is not running"
         EXIT_CODE=1
